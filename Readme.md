@@ -155,3 +155,4 @@ docker-compose up
 ## 📌 Conclusão
 Este projeto aborda conceitos essenciais de programação orientada a objetos, manipulação de eventos e arrays em JavaScript, além da containerização com Docker. É um excelente exemplo para quem deseja aprofundar conhecimentos nessas áreas!
 
+🐳
