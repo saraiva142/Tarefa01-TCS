@@ -111,7 +111,7 @@ const editarAluno = (index) => {
 
 
     alunos[index] = new Aluno(nomeAtualizado, idadeAtualizada, cursoAtualizado, notaAtualizada);
-
+//Essa porra não exclui a desgraça da linha antiga pois estou usando index, e se eu excluir antes ele não vai alterar pq n vai mais existir essa porra
     alert('Aluno foi editado com sucesso!');
 
     // Restaura o botão "Cadastrar" e o comportamento padrão
@@ -124,3 +124,40 @@ const editarAluno = (index) => {
     form.reset();
   };
 }
+
+//Relatorio dos aprovadis
+document.getElementById('aprovados').addEventListener('click', function () {
+  const alunosAprovados = alunos.filter(aluno => aluno.isAprovado());
+  const listaAprovados = alunosAprovados.map(aluno => aluno.tostring()).join('<br>');
+  document.getElementById('relatorio-bi').innerHTML = `<h3>Alunos Aprovados:</h3><p>${listaAprovados}</p>`;
+});
+
+//media das notas
+document.getElementById('media-notas').addEventListener('click', () => {
+  const mediaNotas = alunos.reduce((soma, aluno) => soma + parseFloat(aluno.nota), 0) / alunos.length;
+  document.getElementById('relatorio-bi').innerHTML = `<h3>Média das Notas Finais:</h3><p>${mediaNotas.toFixed(2)}</p>`;
+});
+
+//media das notas
+document.getElementById('media-idades').addEventListener('click', () => {
+  const mediaIdades = alunos.reduce((soma, aluno) => soma + parseFloat(aluno.idade), 0) / alunos.length;
+  document.getElementById('relatorio-bi').innerHTML = `<h3>Média das Idades:</h3><p>${mediaIdades.toFixed(2)}</p>`;
+});
+
+//Ordem alfabética
+document.getElementById('alunos-ordem').addEventListener('click', () => {
+  const nomesOrdenados = alunos.map(aluno => aluno.nome).sort().join('<br>');
+  document.getElementById('relatorio-bi').innerHTML = `<h3>Nomes em Ordem Alfabética:</h3><p>${nomesOrdenados}</p>`;
+});
+
+// Qtd de alunos por curso
+document.getElementById('quantidade-por-curso').addEventListener('click', () => {
+  const quantidadePorCurso = alunos.reduce((contador, aluno) => { //Usando contadpr
+      contador[aluno.curso] = (contador[aluno.curso] || 0) + 1;
+      return contador;
+  }, {});
+  const resultado = Object.entries(quantidadePorCurso)
+      .map(([curso, quantidade]) => `${curso}: ${quantidade}`)
+      .join('<br>');
+  document.getElementById('relatorio-bi').innerHTML = `<h3>Quantidade de Alunos por Curso:</h3><p>${resultado}</p>`;
+});
